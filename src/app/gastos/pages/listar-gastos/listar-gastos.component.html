@@ -1,0 +1,69 @@
+<div class="card border-primary tarjeta mb-3 panel">
+  <div class="card-header">{{title}}</div>
+  <div class="card-body text-primary">
+    <h4 class="card-title">Gastos ingresados </h4>
+    <div class="my-2 text-left">
+      <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/gastos/formgasto']">
+          Crear gasto
+      </button>
+    </div>
+    <div *ngIf="gastos?.length == 0" class="alert alert-info">
+      No hay registros de gastos!!!
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped table-sm table-md t" *ngIf="gastos.length > 0">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>Descripcion del gasto</th>
+            <th>Fecha</th>
+            <th>Tipo de gasto</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+            <th>Detalle</th>
+            <th>Asignar detalle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let gasto of gastos">
+            <td>{{gasto.id}}</td>
+            <td>{{gasto.descripcion}}</td>
+            <td>{{gasto.fechaGasto | date: "EEEE dd, MMMM yyyy"}}</td>
+            <td>{{gasto.tipoGasto}}</td>
+            <td>
+              <button type="button" name="editar" [routerLink]="['/gastos/formgasto', gasto.id]"  class="btn btn-primary editar">
+                 editar
+              </button>
+            </td>
+            <td>
+              <button type="button" name="eliminar" class="btn btn-danger eliminar" (click)="delete(gasto)">
+                 eliminar
+              </button>
+            </td>
+            <td>
+              <button type="button" name="idetalle" class="btn btn-success detalle" [routerLink]="['/gastos/bygasto', gasto.id]">
+                 detalle
+              </button>
+            </td>
+            <td>
+              <button type="button" name="detalle" class="btn btn-rounded  btn-dark ad" [routerLink]="['/gastos/formdetallegasto', gasto.id]">
+                asignar
+             </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+   <paginador-gastos  *ngIf="paginador" [paginador]="paginador"></paginador-gastos>
+  </div>
+</div>
+<!--Tarjeta lateral que mostrara el valor total acumulados de lso gastos y el número de clientes que tiene la aplicacion-->
+<div class="col-md-3">
+  <div class="card text-center bg-danger text-white mb-3">
+    <div class="card-body">
+      <h3>Gasto Total Acumulado</h3>
+      <h4>{{valor}}</h4>
+    </div>
+  </div>
+</div>
+

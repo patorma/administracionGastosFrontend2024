@@ -1,0 +1,70 @@
+<ul class="alert alert-danger" *ngIf="errores.length > 0">
+  <li *ngFor="let err of errores">
+      {{ err }}
+  </li>
+</ul>
+
+<div class="card my-4 bg-dark text-white">
+  <div class="card-header">{{ titulo }}</div>
+  <div class="card-body">
+    <form #gastoForm="ngForm">
+      <div class="form-group row">
+        <label for="descripcion" class="col-form-label col-sm-2">Descripción del gasto</label
+          >
+          <div class="col-sm-6 textarea">
+            <textarea
+            class="form-control"
+            [(ngModel)]="gasto.descripcion"
+            name="descripcion"
+            cols="30"
+            rows="10"
+            #descripcion="ngModel"
+            >
+            </textarea>
+            <div
+            class="alert alert-danger"
+            *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)"
+            >
+             <!--este div es el principal que pregunta si hay error-->
+             <div *ngIf="descripcion.errors?.['required']">
+                Descripción del gasto es requerido por favor
+             </div>
+             <div *ngIf="descripcion.errors?.['minlength']">
+                Descripción debe tener 30 caracteres como minimo
+             </div>
+             <div *ngIf="descripcion.errors?.['maxlength']">
+               Descripción debe tener 300 caracteres como máximo
+             </div>
+            </div>
+          </div>
+      </div>
+      <!--Acá se ingresa el tipo de gasto y se valida el valor ingresado-->
+      <div class="form-group row">
+        <label for="tipo" class="col-form-label col-sm-2 father">Tipo de gasto</label>
+        <div class="col-sm-6">
+          <select [(ngModel)]="gasto.tipoGasto" class="form-control children" name="tipo" style="width: 440px;">
+            <option *ngFor="let tipo of tiposGasto" [ngValue]="tipo">{{ tipo }}</option>
+          </select>
+        </div>
+      </div>
+      <!--Acá se ingresa la fecha-->
+      <div class="form-group row fecha1">
+        <label for="fechaGasto" class="col-form-label col-sm-2 father2">Fecha</label>
+        <input [matDatepicker]="miDatepicker" class="form-control fecha" [(ngModel)]="gasto.fechaGasto" name="fechaGasto" style="display: inline; width: 300px" />
+        <mat-datepicker-toggle [for]="miDatepicker" class="mat"></mat-datepicker-toggle>
+        <mat-datepicker #miDatepicker></mat-datepicker>
+      </div>
+     <!--aca van los botones de crear o modificar dependiendo-->
+     <div class="col-sm-6">
+      <button class="btn btn-primary" role="button" (click)="create()" *ngIf="!gasto.id; else elseBlock" [disabled]="!gastoForm.form.valid">
+        Crear
+      </button>
+      <ng-template #elseBlock>
+        <button class="btn btn-primary" role="button" (click)="update()" [disabled]="!gastoForm.form.valid">
+          Editar
+        </button>
+      </ng-template>
+     </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<ul class="alert alert-danger" *ngIf="errores.length > 0">
+  <li *ngFor="let err of errores">
+      {{ err }}
+  </li>
+</ul>
+<div class="card my-4 bg-dark text-white">
+  <div class="card-header">{{ titulo }}</div>
+  <div class="card-body">
+    <form #detalleForm="ngForm">
+      <div class="form-group row">
+        <label for="cantidad" class="col-form-label col-sm-2"> Cantidad</label>
+        <input type="number" class="form-control" [(ngModel)]="detalleGasto.cantidad" name="cantidad" #cantidad="ngModel">
+        <div  class="alert alert-danger"
+        *ngIf="cantidad.invalid && (cantidad.dirty || cantidad.touched)"
+        >
+          <div *ngIf="cantidad.errors?.['required']">
+            Cantidad es requerida por favor
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="precio" class="col-form-label col-sm-2">Precio</label>
+        <input type="number"class="form-control" [(ngModel)]="detalleGasto.precio" name="precio" #precio="ngModel" >
+        <div  class="alert alert-danger"
+        *ngIf="precio.invalid && (precio.dirty || precio.touched )"
+        >
+           <div *ngIf="precio.errors?.['required']" >
+             El precio es requerido por favor
+           </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="producto" class="col-form-label col-sm-2" >Producto</label>
+        <input type="text" name="producto" class="form-control" [(ngModel)]="detalleGasto.producto" #producto="ngModel" >
+        <div class="alert alert-danger"
+         *ngIf="producto.invalid && (producto.dirty || producto.touched)"
+        >
+           <div *ngIf="producto.errors?.['required']">
+            el producto es requerido por favor
+           </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <input type="hidden" name="gasto" [(ngModel)]="detalleGasto.gasto.id " name="gasto" #gasto="ngModel">
+        <div  class="alert alert-danger"
+        *ngIf="gasto.invalid  && (gasto.dirty || gasto.touched)"
+        >
+          <div *ngIf="gasto.errors?.['required']">
+             el gasto es requerido por favor
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <button class="btn btn-primary" role="button" (click)="createDetalle()" >
+          Crear
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<!-- el id del gasto en la ruta es: {{detalleGasto.gasto.id }} -->

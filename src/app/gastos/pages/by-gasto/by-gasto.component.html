@@ -1,0 +1,56 @@
+<div class="card border-primary tarjeta mb-3 panel">
+  <div class="card-header">{{title}}</div>
+  <div class="card-body text-primary">
+    <h4 class="card-title">Detalles del Gasto ingresado</h4>
+    <div *ngIf="detalleGastoDTO.length == 0" class="alert alert-info">
+         El gasto no tiene detalle asociado
+         <!-- <div >
+          <form-detalle-gasto [gastoid]="gasto.id"></form-detalle-gasto>
+         </div> -->
+
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped table-sm table-md" *ngIf="detalleGastoDTO.length > 0">
+        <thead>
+          <tr>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Subtotal</th>
+            <th>Producto</th>
+            <th>id </th>
+            <th>Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let detalle of detalleGastoDTO ">
+           <td> {{detalle.cantidad}}</td>
+           <td>{{detalle.precio}}</td>
+           <td>{{detalle.subtotal}}</td>
+           <td>{{detalle.producto}}</td>
+           <td>{{detalle.id}}</td>
+           <td>
+           <button type="button" name="eliminar" class="btn btn-danger eliminar" (click)="deleteDetalleGasto(detalle)">
+
+            eliminar
+         </button>
+           </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="col-md-3 d">
+  <div class="card text-center bg-danger text-white mb-3">
+    <div class="card-body">
+      <h3>Gasto Total  del detalle</h3>
+      <h4>{{valor}}</h4>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="col-md-3 d">
+  <button class="btn btn-primary" role="button" *ngIf="detalleGastoDTO.length == 0" ; >
+
+  </button>
+</div> -->

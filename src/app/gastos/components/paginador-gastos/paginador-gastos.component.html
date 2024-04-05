@@ -1,0 +1,28 @@
+<ul *ngIf="paginas.length > 0" class="pagination">
+  <li class="page-item" *ngIf="paginador.number > 0">
+  <!-- paginador.number es la pagina actual pero queremos avanzar a la anterior -1-->
+     <a class="page-link" [routerLink]="[ '/gastos/page',paginador.number-1]">&laquo;</a>
+  </li>
+
+ <!-- atajos para ir a primera y ultima pagina , el primero para ir a la primera pagina-->
+ <!-- debe estar en todas las paginas menos en la primera -->
+ <!-- si es la primera pagina desahabilitamos el link -->
+ <li [ngClass]="paginador.first?'disabled page-item': 'page-item'">
+     <a class="page-link" [routerLink]="[ '/gastos/page',0]">Primera</a>
+ </li>
+ <li class="page-item" *ngFor="let pagina of paginas" [ngClass]="pagina-1 == paginador.number?'active':''">
+     <!-- cuando la pagina sea la misma que la del link la pagina actual igual a la del paginador-->
+     <span class="page-link" *ngIf="pagina-1 == paginador.number">{{ pagina }}</span>
+     <!-- si la pagina actual del for es distinto a la pagina actual que estamos navegando mostramos los links -->
+     <a *ngIf="pagina-1 != paginador.number" class="page-link" [routerLink]="[ '/gastos/page', pagina-1]">{{ pagina }}</a>
+ </li>
+   <!-- si es ultima pagina desahabilitamos el link -->
+   <li [ngClass]="paginador.last?'disabled page-item': 'page-item'">
+     <a class="page-link" [routerLink]="[ '/gastos/page',paginador.totalPages-1]">Última</a>
+ </li>
+   <!-- se valida que no sea la ultima pagina con ng-if, se pregunta si la pagina actual es menor al total de paginas -1-->
+   <li class="page-item" *ngIf="paginador.number < paginador.totalPages-1">
+     <!-- paginador.number es la pagina actual pero queremos avanzar a la siguiente +1-->
+     <a class="page-link" [routerLink]="[ '/gastos/page',paginador.number+1]">&raquo;</a>
+ </li>
+</ul>
