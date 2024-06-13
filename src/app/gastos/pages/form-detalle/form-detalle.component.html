@@ -8,14 +8,14 @@
   <div class="card-body">
     <form #detalleForm="ngForm">
       <div class="form-group row">
-        <label for="cantidad" class="col-form-label col-sm-2"> Cantidad</label>
-        <input type="number" class="form-control" [(ngModel)]="detalleGasto.cantidad" name="cantidad" #cantidad="ngModel">
-        <div  class="alert alert-danger"
-        *ngIf="cantidad.invalid && (cantidad.dirty || cantidad.touched)"
+        <label for="producto" class="col-form-label col-sm-2" >Producto</label>
+        <input type="text" name="producto" class="form-control" [(ngModel)]="detalleGasto.producto" #producto="ngModel" >
+        <div class="alert alert-danger"
+         *ngIf="producto.invalid && (producto.dirty || producto.touched)"
         >
-          <div *ngIf="cantidad.errors?.['required']">
-            Cantidad es requerida por favor
-          </div>
+           <div *ngIf="producto.errors?.['required']">
+            el producto es requerido por favor
+           </div>
         </div>
       </div>
       <div class="form-group row">
@@ -30,16 +30,17 @@
         </div>
       </div>
       <div class="form-group row">
-        <label for="producto" class="col-form-label col-sm-2" >Producto</label>
-        <input type="text" name="producto" class="form-control" [(ngModel)]="detalleGasto.producto" #producto="ngModel" >
-        <div class="alert alert-danger"
-         *ngIf="producto.invalid && (producto.dirty || producto.touched)"
+        <label for="cantidad" class="col-form-label col-sm-2"> Cantidad</label>
+        <input type="number" class="form-control" [(ngModel)]="detalleGasto.cantidad" name="cantidad" #cantidad="ngModel">
+        <div  class="alert alert-danger"
+        *ngIf="cantidad.invalid && (cantidad.dirty || cantidad.touched)"
         >
-           <div *ngIf="producto.errors?.['required']">
-            el producto es requerido por favor
-           </div>
+          <div *ngIf="cantidad.errors?.['required']">
+            Cantidad es requerida por favor
+          </div>
         </div>
       </div>
+
       <div class="form-group row">
         <input type="hidden" name="gasto" [(ngModel)]="detalleGasto.gasto.id " name="gasto" #gasto="ngModel">
         <div  class="alert alert-danger"
