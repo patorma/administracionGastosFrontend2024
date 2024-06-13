@@ -15,7 +15,7 @@ export class FormDetalleComponent implements OnInit {
   @Input()
   public gastoid: any;
 
-  public titulo: string = "Ingresar";
+  public titulo: string = "Ingresar producto";
   public errores: string[] =[];
   public id: number=0;
   public detalleGasto: DetalleGastoDTO ={
