@@ -12,8 +12,8 @@ import Swal from 'sweetalert2';
 })
 export class FormDetalleComponent implements OnInit {
 
-  @Input()
-  public gastoid: any;
+  // @Input()
+  // public gastoid: any;
 
   public titulo: string = "Ingresar producto";
   public errores: string[] =[];
