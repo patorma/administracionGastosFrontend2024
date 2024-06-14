@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'form-detalle-gasto',
   templateUrl: './form-detalle.component.html',
-  styles: [
+  styleUrls:  ['./form-detalle.component.css'
   ]
 })
 export class FormDetalleComponent implements OnInit {
