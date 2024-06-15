@@ -157,6 +157,23 @@ export class GastosService {
               )
   }
 
+  updateDetalleGasto(detalleGasto: DetalleGastoDTO ){
+    return this.http
+                  .put<DetalleGastoDTO>(`${this.apiUrl}detalleGasto/${detalleGasto.id}`,detalleGasto)
+                  .pipe(
+                    catchError((e)=>{
+                      if (e.status === 400) {
+                        return throwError(() =>e);
+                      }
+                      if(e.error.mensaje){
+                        console.error(e.error.mensaje);
+                        }
+                        return throwError(()=>e);
+                    })
+                   )
+
+  }
+
   deleteDetalleGasto(id: number): Observable<DetalleGastoDTO>{
     return this.http
                .delete<DetalleGastoDTO>(`${this.apiUrl}detalleGasto/${id}`)
