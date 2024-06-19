@@ -5,15 +5,18 @@
     <div class="alert alert-primary">
        {{nombreGasto}}
     </div>
-    <button type="button" name="detalle" class="btn btn-rounded  btn-dark ad" [routerLink]="['/gastos/formdetallegasto', gastoid]">
+    <!-- <button type="button" name="detalle" class="btn btn-rounded  btn-dark ad" [routerLink]="['/gastos/formdetallegasto']">
       asignar
+   </button> -->
+   <button type="button" name="detalle" class="btn btn-rounded btn-dark d" [routerLink]="['/gastos/formasignagasto/',gastoid]">
+     agregar producto
    </button>
 
     <div *ngIf="detalleGastoDTO.length == 0" class="alert alert-info">
          El gasto no tiene detalle asociado
 
-
-         <!-- <div >
+<!--
+         <div >
           <form-detalle-gasto [gastoid]="gasto.id"></form-detalle-gasto>
          </div> -->
 
@@ -23,10 +26,11 @@
         <thead>
           <tr>
             <th>id</th>
-            <th>Cantidad</th>
-            <th>Precio</th>
-            <th>Subtotal</th>
             <th>Producto</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Subtotal</th>
+            <th>Editar</th>
             <th>Eliminar</th>
 
           </tr>
@@ -34,10 +38,15 @@
         <tbody>
           <tr *ngFor="let detalle of detalleGastoDTO ">
            <td>{{detalle.id}}</td>
-           <td> {{detalle.cantidad}}</td>
-           <td>{{detalle.precio}}</td>
-           <td>{{detalle.subtotal}}</td>
            <td>{{detalle.producto}}</td>
+           <td>{{detalle.precio}}</td>
+           <td> {{detalle.cantidad}}</td>
+           <td>{{detalle.subtotal}}</td>
+           <td>
+            <button type="button" name="editar" [routerLink]="['/gastos/formdetallegasto', detalle.id]"  class="btn btn-primary editar">
+               editar
+            </button>
+          </td>
            <td>
            <button type="button" name="eliminar" class="btn btn-danger eliminar" (click)="deleteDetalleGasto(detalle)">
 

@@ -12,43 +12,61 @@ import Swal from 'sweetalert2';
 })
 export class ByGastoComponent implements OnInit {
 
-  public gastoid: number =0;
+  //public gastoid: number =0;
   public detalleGastoDTO: DetalleGastoDTO[] = [];
   public valor: number = 0;
-  public gasto: Gasto = { id: 0, descripcion: '', fechaGasto: '', tipoGasto: 'OTRO' };
+  public gasto!: Gasto;
+  public gastoid: number =0; // para enviar id de gasto a form de detalle
   public title: string = 'Detalle del gasto';
   public nombreGasto: string ='';
 
   constructor(private gastoService: GastosService, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((params) => {
-      this.gastoid = +params['id'];// se usa el + para transformar params['id'] de un string a number
+    // this.activatedRoute.params.subscribe((params) => {
+    //  let id= +params['id'];// se usa el + para transformar params['id'] de un string a number
     //  console.log( typeof(this.gastoid))
-      if (this.gastoid) {
+
         this.cargarDetalleGasto();
-        this.actualizarValorTotal();
-      }
-    });
-  }
+        //this.actualizarValorTotal();
+
+
+    };
+
 
   cargarDetalleGasto(): void {
-    this.gastoService.obtenerDetallesGastos(this.gastoid).subscribe((detalle) => {
-      this.detalleGastoDTO = detalle;
-    });
-    this.verGasto();
+    this.activatedRoute.params.subscribe(
+      (params) =>{
+        let id =+params['id']
+        console.log(id)
+        if(id){
+          this.gastoService.obtenerDetallesGastos(id).subscribe(
+            (detalle)=>{
+              this.detalleGastoDTO = detalle
+            }
+          )
+        }
+        this.verGasto(id);
+        this.actualizarValorTotal(id)
+      }
+    )
+    // this.gastoService.obtenerDetallesGastos(id).subscribe((detalle) => {
+    //   this.detalleGastoDTO = detalle;
+    // });
+
   }
 
-  verGasto(): void {// implementar en el html ver el gasto que se le asigana el detalle
-    this.gastoService.getGastosById(this.gastoid).subscribe((gasto) => {
+  verGasto(id:number): void {// implementar en el html ver el gasto que se le asigana el detalle
+    this.gastoService.getGastosById(id).subscribe((gasto) => {
       this.gasto = gasto;
-      console.log(this.gasto)
+      console.log(id)
       this.nombreGasto = this.gasto.descripcion
+      this.gastoid =gasto.id
     });
   }
 
-  actualizarValorTotal(): void {
-    this.gastoService.subTotalGastosById(this.gastoid).subscribe({
+  actualizarValorTotal(id:number): void {
+    this.gastoService.subTotalGastosById(id).subscribe({
       next: (total) => {
         this.valor = total;
       },
@@ -89,7 +107,7 @@ export class ByGastoComponent implements OnInit {
                 'success'
               );
               // Actualizar el valor total después de eliminar un detalle
-              this.actualizarValorTotal();
+              this.actualizarValorTotal(this.gastoid );
             },
             error: (err) => {
               if (err.error.mensaje) {
