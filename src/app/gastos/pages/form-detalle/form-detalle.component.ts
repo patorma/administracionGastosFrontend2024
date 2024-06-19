@@ -17,36 +17,51 @@ export class FormDetalleComponent implements OnInit {
 
   public titulo: string = "Ingresar producto";
   public errores: string[] =[];
-  public id: number=0;
-  public detalleGasto: DetalleGastoDTO ={
+  // public id: number=0;
+  public detalle: DetalleGastoDTO ={
     id: 0,
-    precio: 0, // Valor inicial numérico
-    subtotal: 0, // Valor inicial numérico
-    cantidad: 0, // Valor inicial numérico
+    cantidad:0,
+    precio: 0,
     producto: '',
+    subtotal: 0,
     gasto: {
       id: 0,
       descripcion: '',
-      tipoGasto: 'OTRO',
-      fechaGasto: ''
+      fechaGasto: '',
+      tipoGasto:'OTRO'
     }
-
   }
   constructor(private gastoService: GastosService,private router: Router,
     private activatedRoute:ActivatedRoute){
 
   }
   ngOnInit():void {
-    this.detalleGasto.gasto.id = this.activatedRoute.snapshot.params['id'];
+   this.cargarDetalle()
+   this.detalle.gasto.id  = this.activatedRoute.snapshot.params['id'];
+  }
+
+  cargarDetalle(): void {
+    this.activatedRoute.params.subscribe(
+      (params)=>{
+        let id =+params['id']
+        if(id){
+          this.gastoService.getDetalleGastoById(id).subscribe(
+            (detalle)=>  this.detalle = detalle
+          )
+        }
+
+
+      }
+    )
   }
 
    createDetalle(): void{
-    this.gastoService.createDetalleGastoDTO(this.detalleGasto).subscribe(
+    this.gastoService.createDetalleGastoDTO(this.detalle).subscribe(
       (detalle)=>{
-        this.router.navigate(['/gastos/bygasto', this.detalleGasto.gasto.id ])
+        this.router.navigate(['/gastos/bygasto', this.detalle.gasto.id ])
         Swal.fire(
           'Detalle del gasto creado!!',
-          `El detalle del gasto ha sido creado con éxito!`,
+          `El detalle ${detalle} del gasto ha sido creado con éxito!`,
           'success'
         )
       },
@@ -61,5 +76,41 @@ export class FormDetalleComponent implements OnInit {
         )
       }
     )
+   }
+
+   update():void {
+    this.gastoService.updateDetalleGasto(this.detalle).subscribe(
+      (response: any)=>{
+
+        this.router.navigate(['/gastos/bygasto',this.detalle.gasto.id])
+
+        Swal.fire(
+               'Detalle del gasto actualizado',
+                 `${response.mensaje}: era el producto ${response.detalle.producto}`,
+                 'success'
+               )
+      },
+      (err)=>{
+            this.errores = err.error.errors as string[];
+           console.error("Codigo del error desde el backend: " + err.status);
+            console.error(err.error.errors);
+           }
+
+    )
+    // this.gastoService.updateDetalleGasto(this.detalleGasto).subscribe({
+    //   next: (response:any) =>{
+    //     this.router.navigate(['/gastos/bygasto',this.detalleGasto.gasto.id])
+    //     Swal.fire(
+    //       'Detalle del gasto actualizado',
+    //       `${response.mensaje}: era el producto ${response.detalleGasto.producto}`,
+    //       'success'
+    //     )
+    //   },
+    //   error: (err)=>{
+    //     this.errores = err.error.errors as string[];
+    //    console.error("Codigo del error desde el backend: " + err.status);
+    //    console.error(err.error.errors);
+    //   }
+    // })
    }
 }
