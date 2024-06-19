@@ -13,6 +13,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormDetalleComponent } from './pages/form-detalle/form-detalle.component';
+import { FormAsignarGastoComponent } from './pages/form-asignar-gasto/form-asignar-gasto.component';
 
 registerLocaleData(localeEs,'es')//importar esto para cambiar el idioma a español
 
@@ -23,6 +24,8 @@ registerLocaleData(localeEs,'es')//importar esto para cambiar el idioma a españ
     FormGastoComponent,
     ListarGastosComponent,
     FormDetalleComponent,
+    FormAsignarGastoComponent,
+
 
   ],
   imports: [
