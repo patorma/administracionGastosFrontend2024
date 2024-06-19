@@ -137,6 +137,16 @@ export class GastosService {
                 )
   }
 
+  getDetalleGastoById(id: number): Observable<DetalleGastoDTO>{
+    return this.http
+                .get<DetalleGastoDTO>(`${this.apiUrl}detalleGasto/${id}`)
+                .pipe(
+                  catchError(e =>{
+                    return throwError(() =>e)
+                  })
+                )
+  }
+
   subTotalGastosById(id: number): Observable<number>{
     return this.http
           .get<number>(`${this.apiUrl}gasto/subtotal/${id}`)
