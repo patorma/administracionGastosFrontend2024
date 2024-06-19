@@ -5,6 +5,7 @@ import { ByGastoComponent } from "./pages/by-gasto/by-gasto.component";
 import { FormGastoComponent } from "./pages/form-gasto/form-gasto.component";
 import { PageComponent } from "./components/paginador-gastos/paginador-gastos.component";
 import { FormDetalleComponent } from "./pages/form-detalle/form-detalle.component";
+import { FormAsignarGastoComponent } from "./pages/form-asignar-gasto/form-asignar-gasto.component";
 
 
 const routes: Routes=[
@@ -36,6 +37,10 @@ const routes: Routes=[
   {
     path:'formdetallegasto/:id',
     component: FormDetalleComponent
+  },
+  {
+    path: 'formasignagasto/:id',
+    component: FormAsignarGastoComponent
   }
   // {
   //   path:'**',
