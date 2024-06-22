@@ -11,6 +11,14 @@ const routes: Routes = [
     loadChildren: () => import('./gastos/gastos.module').then(m =>m.GastosModule)
   },
   {
+    path: 'notas',
+    loadChildren: () => import('./notes/notes.module').then(m => m.NotesModule)
+  },
+  {
+    path: 'notas/page/:page',
+    loadChildren: () => import('./notes/notes.module').then(m => m.NotesModule)
+  },
+  {
     path:'**',
     redirectTo: '/gastos'
   }
