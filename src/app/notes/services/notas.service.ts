@@ -15,7 +15,7 @@ export class NotasService {
   getNotasRequest(page:number): Observable<any>{
       return this.http.get(`${this.apiUrl}notas/page/${page}`).pipe(
         map((response: any)=>{
-          (response as Nota[]).map(({titulo,contenido})=>{
+          (response.content as Nota[]).map(({titulo,contenido})=>{
             titulo = titulo.toUpperCase();
             console.log(titulo)
             return [titulo,contenido]
