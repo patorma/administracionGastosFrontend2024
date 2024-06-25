@@ -1,1 +1,47 @@
-<p>listar-notas works!</p>
+<div class="card border-primary tarjeta mb-3 panel">
+  <div class="card-header">{{title}}</div>
+  <div class="card-body text-primary">
+    <h4 class="card-title"> Notas Ingresadas </h4>
+    <div class="my-2 text-left">
+       <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/notas/formnotas']">
+           Crear nota
+       </button>
+    </div>
+    <div *ngIf="notas?.length == 0" class="alert alert-info">
+      No hay registros de notas!!!
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped table-sm table-md t" *ngIf="notas.length > 0">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Título de la nota</th>
+            <th>Contenido de la nota</th>
+            <th>Fecha de la nota</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let nota of notas">
+               <td>{{nota.id}}</td>
+               <td>{{nota.titulo}}</td>
+               <td>{{nota.contenido}}</td>
+               <td>{{nota.fechaNota | date: "EEEE dd, MMMM yyyy"}}</td>
+               <td>
+                 <button type="button" name="editar" [routerLink]="['/notas/formnotas',nota.id]" class="btn btn-primary">
+                  editar
+                 </button>
+               </td>
+               <td>
+                 <button type="button" name="eliminar" class="btn btn-danger" (click)="delete(nota)">
+                    eliminar
+                 </button>
+               </td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+    <paginador-notas *ngIf="paginador" [paginador]="paginador"></paginador-notas>
+  </div>
+</div>

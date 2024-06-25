@@ -1,0 +1,76 @@
+<ul class="alert alert-danger" *ngIf="errores.length > 0">
+  <li *ngFor="let err of errores">
+      {{ err }}
+  </li>
+</ul>
+<div class="card my-4 bg-dark text-white">
+  <div class="card-header">{{ title }}</div>
+  <div class="card-body">
+    <form #notaForm="ngForm">
+      <div class="form-group row">
+        <label for="titulo" class="col-form-label col-sm-2">Titulo de la nota</label
+          >
+        <input type="text" id="titulo" name="titulo" class="form-control" [(ngModel)]="nota.titulo" #titulo="ngModel" required>
+        <div class="alert alert-danger" *ngIf="titulo.invalid && (titulo.dirty || titulo.touched)">
+          <div *ngIf="titulo.errors?.['required']">
+           Titulo es requerido por favor
+          </div>
+          <div *ngIf="titulo.errors?.['min']">
+            El título debe ser mayor a 0
+          </div>
+          <div *ngIf="titulo.errors?.['minlength']">
+           El título debe tener 30 caracteres como minimo
+         </div>
+          <div *ngIf="titulo.errors?.['maxlength']">
+           Título debe tener 300 caracteres como máximo
+          </div>
+        </div>
+      </div>
+      <div class="form-group row div-contenido">
+        <label for="contenido" class="col-form-label col-sm-2 contenido">Contenido de la nota</label
+          >
+          <div class="col-sm-6 textarea form-floating">
+            <textarea
+             class="form-control"
+             [(ngModel)]="nota.contenido"
+             name="contenido"
+             cols="30"
+             rows="10"
+             #contenido="ngModel"
+            >
+            </textarea>
+            <div
+            class="alert alert-danger"
+            *ngIf="contenido.invalid && (contenido.dirty || contenido.touched)"
+            >
+            <div *ngIf="contenido.errors?.['required']">
+              Contenido de la nota es requerido por favor
+           </div>
+           <div *ngIf="contenido.errors?.['minlength']">
+            Contenido de la nota debe tener 30 caracteres como minimo
+         </div>
+         <div *ngIf="contenido.errors?.['maxlength']">
+          Contenido de la nota debe tener 300 caracteres como máximo
+         </div>
+            </div>
+          </div>
+      </div>
+       <!--Acá se ingresa la fecha-->
+       <div class="form-group row fecha1">
+          <label for="fechaNota" class="col-form-label col-sm-2 father2">Fecha</label>
+          <input [matDatepicker]="miDatepicker" class="form-control fecha" [(ngModel)]="nota.fechaNota" name="fechaGasto" style="display: inline; width: 300px" />
+          <mat-datepicker-toggle [for]="miDatepicker" class="mat"></mat-datepicker-toggle>
+          <mat-datepicker #miDatepicker></mat-datepicker>
+       </div>
+      <!--aca van los botones de crear o modificar dependiendo-->
+      <button class="btn btn-primary div-crear" role="button" (click)="create()" *ngIf="!nota.id; else elseBlock" [disabled]="!notaForm.form.valid">
+        Crear
+      </button>
+      <ng-template #elseBlock>
+        <button class="btn btn-primary div-editar" role="button" (click)="update()" [disabled]="!notaForm.form.valid">
+          Editar
+        </button>
+      </ng-template>
+    </form>
+  </div>
+</div>
