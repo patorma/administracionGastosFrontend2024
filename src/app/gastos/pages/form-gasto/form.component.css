@@ -16,10 +16,14 @@
 .fecha1 .fecha{
   margin-left: 6px;
 }
-.mat{
+/* .mat{
   color: aliceblue;
   margin-left: 500px;
   margin-top: -50px;
+} */
+.mat{
+  color: aliceblue;
+  margin-left: auto;
+  margin-top: auto;
 }
-
 
