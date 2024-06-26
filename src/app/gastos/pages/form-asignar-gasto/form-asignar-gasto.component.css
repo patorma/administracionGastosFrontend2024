@@ -1,3 +1,14 @@
+
+.padre-producto , .padre-precio ,.padre-cantidad
+{
+  width: 50%;
+  /* margin: 0; */
+  /* margin: auto; */
+  /* padding: 0; */
+  /* margin: 0; */
+  /* box-sizing: border-box; */
+}
+
 .div-crear > .crear-boton{
   margin-top: 20px;
   /* margin-left: 200px;
