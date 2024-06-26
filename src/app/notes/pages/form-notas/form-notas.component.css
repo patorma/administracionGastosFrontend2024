@@ -1,3 +1,7 @@
+
+/* .div-titulo{
+  align-items: center;
+} */
 .div-editar{
   margin-top: 20px;
   /* margin-left: 200px;
@@ -18,10 +22,33 @@
   margin-top: auto;
 }
 
-.div-contenido .textarea{
-    margin-top: 30px;
-    margin-left: -250px ;/*aqui quede*/
-    height: 100px;
+/* .div-contenido{
+  margin-left: 0%;
+  margin-right: 0%;
+} */
+ .div-titulo .titulo{
+  /* margin : auto */
+ }
+ .titulo{
+  margin-bottom: 20px;
+  height: 50px;
+ }
+
+ .div-contenido{
+  margin-bottom: 20px;
+ }
+ .div-titulo .titulo,.div-contenido .textarea,
+ .fecha1 .father2 .fecha {
+  width: 500px;
+  padding: 0;
+  /* margin: 0; */
+  box-sizing: border-box;
+    /* margin-top: 30px; */
+    /* margin-left: -250px ;aqui quede */
+
+
+
+    /* height: 100px; */
 
 }
 
