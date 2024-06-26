@@ -7,10 +7,10 @@
   <div class="card-header">{{ title }}</div>
   <div class="card-body">
     <form #notaForm="ngForm">
-      <div class="form-group row">
+      <div class="form-group row div-titulo">
         <label for="titulo" class="col-form-label col-sm-2">Titulo de la nota</label
           >
-        <input type="text" id="titulo" name="titulo" class="form-control" [(ngModel)]="nota.titulo" #titulo="ngModel" required>
+        <input type="text" id="titulo" name="titulo" class="form-control titulo" [(ngModel)]="nota.titulo" #titulo="ngModel" required>
         <div class="alert alert-danger" *ngIf="titulo.invalid && (titulo.dirty || titulo.touched)">
           <div *ngIf="titulo.errors?.['required']">
            Titulo es requerido por favor
@@ -26,10 +26,10 @@
           </div>
         </div>
       </div>
-      <div class="form-group row div-contenido">
+      <div class="form-group row div-contenido ">
         <label for="contenido" class="col-form-label col-sm-2 contenido">Contenido de la nota</label
           >
-          <div class="col-sm-6 textarea form-floating">
+          <div class="col-sm-6 textarea">
             <textarea
              class="form-control"
              [(ngModel)]="nota.contenido"
@@ -60,7 +60,7 @@
           <label for="fechaNota" class="col-form-label col-sm-2 father2">Fecha</label>
           <input [matDatepicker]="miDatepicker" class="form-control fecha" [(ngModel)]="nota.fechaNota" name="fechaGasto" style="display: inline; width: 300px" />
           <mat-datepicker-toggle [for]="miDatepicker" class="mat"></mat-datepicker-toggle>
-          <mat-datepicker #miDatepicker></mat-datepicker>
+          <mat-datepicker #miDatepicker class="f"></mat-datepicker>
        </div>
       <!--aca van los botones de crear o modificar dependiendo-->
       <button class="btn btn-primary div-crear" role="button" (click)="create()" *ngIf="!nota.id; else elseBlock" [disabled]="!notaForm.form.valid">
